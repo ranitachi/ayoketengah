@@ -14,16 +14,16 @@ class KontakService
     }
     public function all_select()
     {
-        return Kontak::select('nama','value')->orderBy('nama')->get();
+        return Kontak::select('nama','nilai')->orderBy('nama')->get();
     }
 
     public function simpan($data)
     {
-        foreach($data['value'] as $k=>$v)
+        foreach($data['nilai'] as $k=>$v)
         {
             $upd=Kontak::find($k);
             $upd->nama=$data['nama'][$k];
-            $upd->value=$v;
+            $upd->nilai=$v;
             $upd->save();
         }
         return true;

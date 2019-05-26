@@ -2,37 +2,38 @@
        
 		<!-- Services End -->
 
-		<!-- About Us Start -->
-        <div id="rs-about" class="rs-about sec-spacer">
+        <!-- About Us Start -->
+        @include('front.includes.slider')
+        <div id="rs-about" class="rs-about sec-spacer" style="padding-bottom:50px;">
             <div class="container">
                 <div class="sec-title mb-50 text-center">
-                    <h2>ABOUT US</h2>      
-                	<p>Fusce sem dolor, interdum in fficitur at, faucibus nec lorem. Sed nec molestie justo.</p>
+                    <h2>TENTANG KAMI</h2>      
                 </div>
                 <div class="row">
-                    <div class="col-lg-6 col-md-12">
+                    <div class="col-lg-3 col-md-12">
                         <div class="about-img rs-animation-hover">
-							<img src="{{asset('front/images/about/about.jpg')}}" alt="img02"/>
-							<a class="popup-youtube rs-animation-fade" href="https://www.youtube.com/watch?v=3f9CAMoj3Ec" title="Video Icon">
-							</a>
+							<img src="{{asset('img/image2.png')}}" alt="img02"/>
 							<div class="overly-border"></div>
 						</div>
                     </div>
-                    <div class="col-lg-6 col-md-12">
+                    <div class="col-lg-9 col-md-12">
                     	<div class="about-desc">
-                		    <h3>WELCOME TO EDULEARN</h3>      
-                			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                		    <h3>#AyoKeTengah</h3>      
                     	</div>
 						<div id="accordion" class="rs-accordion-style1">
 						    <div class="card">
 						        <div class="card-header" id="headingOne">
 						            <h3 class="acdn-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-						          		Our History
+						          		Tentang Kami
 						            </h3>
 						        </div>
 						        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
 						            <div class="card-body">
-                                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
+                                        @if (isset($profil['about-us']))
+                                            {{potongtext($profil['about-us']->deskripsi,80)}} ...
+                                        @else
+                                            ...
+                                        @endif
 						            </div>
                                     <a href="{{url('about-us')}}" class="btn btn-sm btn-danger pull-right">More About Us</a>
 						        </div>
@@ -44,99 +45,73 @@
             </div>
         </div>
         <!-- About Us End -->
-
+        <hr>
   <!-- Latest News Start -->
-        <div id="rs-latest-news" class="rs-latest-news sec-spacer">
+        <div id="rs-latest-news" class="rs-latest-news sec-spacer" style="padding-top:50px;">
 			<div class="container">
 				<div class="sec-title mb-50 text-center">
-                    <h2>ARTICLES</h2>      
-                	<p>Fusce sem dolor, interdum in efficitur at, faucibus nec lorem. Sed nec molestie justo.</p>
+                    <h2>ARTIKEL</h2>      
                 </div>
 				<div class="row">
 			        <div class="col-md-6">
 						<div class="news-normal-block">
-		                    <div class="news-img">
-		                    	<a href="#">
-		                        	<img src="{{asset('front/images/blog/1.jpg')}}" alt="" />
-		                    	</a>
-		                    </div>
-	                    	<div class="news-date">
-	                    		<i class="fa fa-calendar-check-o"></i>
-	                    		<span>June  28,  2017</span>
-	                    	</div>
-	                    	<h4 class="news-title"><a href="blog-details.html">Those Other College Expenses You Aren't Thinking About</a></h4>
-	                    	<div class="news-desc">
-	                    		<p>
-	                    			Blandit rutrum, erat et egestas ultricies, dolor tortor egestas enim, quiste rhoncus sem the purus eu sapien curabitur.Lorem Ipsum is therefore always free from repetitionetc.
-	                    		</p>
-	                    	</div>
-	                    	<div class="news-btn">
-	                    		<a href="#">Read More</a>
-	                    	</div>
+                            @foreach ($berita as $idx=> $item)
+                                @if ($idx==0)                                    
+                                    <div class="news-img">
+                                        <a href="javascript:detail({{$item->id}},'{{$item->judul_slug}}')">
+                                            <img src="{{asset($item->cover)}}" alt="{{$item->judul}}" />
+                                        </a>
+                                    </div>
+                                    <div class="news-date">
+                                        <i class="fa fa-calendar-check-o"></i>
+                                        <span>{{tglIndo($item->created_at)}}</span>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <i class="fa fa-tag"></i>
+                                        <span>{{$item->kat->kategori}}</span>
+                                    </div>
+                                    <h4 class="news-title"><a href="javascript:detail({{$item->id}},'{{$item->judul_slug}}')">{{$item->judul}}</a></h4>
+                                    <div class="news-desc">
+                                        <p>
+                                            {{potongtext($item->deskripsi,20)}}
+                                        </p>
+                                    </div>
+                                    <div class="news-btn">
+                                        <a href="javascript:detail({{$item->id}},'{{$item->judul_slug}}')">Selengkapnya</a>
+                                    </div>
+                                @endif
+                            @endforeach
 		                </div>
 			        </div>
 			        <div class="col-md-6">
 			        	<div class="news-list-block">
-			        		<div class="news-list-item">
-			                    <div class="news-img">
-			                    	<a href="#">
-			                        	<img src="{{asset('front/images/blog/2.jpg')}}" alt="" />
-			                    	</a>
-			                    </div>			        			
-								<div class="news-content">
-			                    	<h5 class="news-title"><a href="blog-details.html">While the lovely valley team work</a></h5>
-			                    	<div class="news-date">
-			                    		<i class="fa fa-calendar-check-o"></i>
-			                    		<span>June  28,  2017</span>
-			                    	</div>
-			                    	<div class="news-desc">
-			                    		<p>
-			                    			Excepteur sint occaecat cupidatat non proident,
-			                    			sunt in culpa qui officia deserunt.
-			                    		</p>
-			                    	</div>
-				                </div>			        			
-			        		</div>
-			        		<div class="news-list-item">
-			                    <div class="news-img">
-			                    	<a href="#">
-			                        	<img src="{{asset('front/images/blog/3.jpg')}}" alt="" />
-			                    	</a>
-			                    </div>			        			
-								<div class="news-content">
-			                    	<h5 class="news-title"><a href="blog-details.html">I must explain to you how all this idea</a></h5>
-			                    	<div class="news-date">
-			                    		<i class="fa fa-calendar-check-o"></i>
-			                    		<span>June  28,  2017</span>
-			                    	</div>
-			                    	<div class="news-desc">
-			                    		<p>
-			                    			Excepteur sint occaecat cupidatat non proident,
-			                    			sunt in culpa qui officia deserunt.
-			                    		</p>
-			                    	</div>
-				                </div>			        			
-			        		</div>
-			        		<div class="news-list-item">
-			                    <div class="news-img">
-			                    	<a href="#">
-			                        	<img src="{{asset('front/images/blog/4.jpg')}}" alt="" />
-			                    	</a>
-			                    </div>			        			
-								<div class="news-content">
-			                    	<h5 class="news-title"><a href="blog-details.html">I should be incapable of drawing a stroke</a></h5>
-			                    	<div class="news-date">
-			                    		<i class="fa fa-calendar-check-o"></i>
-			                    		<span>June  28,  2017</span>
-			                    	</div>
-			                    	<div class="news-desc">
-			                    		<p>
-			                    			Excepteur sint occaecat cupidatat non proident,
-			                    			sunt in culpa qui officia deserunt.
-			                    		</p>
-			                    	</div>
-				                </div>			        			
-			        		</div>
+                            @foreach ($berita as $idx=> $item)
+                                @if ($idx!=0)
+                                
+                                    <div class="news-list-item">
+                                        <div class="news-img">
+                                            <a href="javascript:detail({{$item->id}},'{{$item->judul_slug}}')">
+                                                <img src="{{asset($item->cover)}}" alt="" />
+                                            </a>
+                                        </div>			
+                                        <div class="news-content">
+                                            <h5 class="news-title"><a href="javascript:detail({{$item->id}},'{{$item->judul_slug}}')">{{$item->judul}}</a></h5>
+                                            <div class="news-date">
+                                                <i class="fa fa-calendar-check-o"></i>
+                                                <span>{{tglIndo($item->created_at)}}</span>
+                                                &nbsp;&nbsp;&nbsp;
+                                                <i class="fa fa-tag"></i>
+                                                <span>{{$item->kat->kategori}}</span>
+                                            </div>
+                                            <div class="news-desc">
+                                                <p>
+                                                    {{potongtext($item->deskripsi,10)}} ...
+                                                </p>
+                                            </div>
+                                        </div>			        			
+                                    </div>
+                                @endif
+                            @endforeach
+			        		
 			        	</div>
 			        </div>
 			    </div>

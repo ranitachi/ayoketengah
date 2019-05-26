@@ -25,3 +25,7 @@
 <script src="{{asset('front/js/plugins.js')}}"></script>
 		 <!-- main js -->
 <script src="{{asset('front/js/main.js')}}"></script>
+<script>
+var url='{{url("/")}}';
+</script>
+<script src="{{asset('js/fungsi.js')}}"></script>

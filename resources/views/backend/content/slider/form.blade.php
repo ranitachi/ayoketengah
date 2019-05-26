@@ -45,20 +45,15 @@
                                     <input type="text" name="judul" id="judul" class="form-control" placeholder="Judul Slider" value="{{$id!=-1 ? $berita->judul : ''}}">
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="col-lg-2 control-label">Kategori :</label>
-								<div class="col-lg-9">
-                                    <input type="text" name="kategori" id="kategori" class="form-control" placeholder="Kategori Slider (*Pisahkan Dengan Koma)" value="{{$id!=-1 ? $berita->kategori : ''}}">
-								</div>
-							</div>
+							
                             <div class="form-group">
 								<label class="col-lg-2 control-label">Status Slider:</label>
 								<div class="col-lg-3">
 									<select class="select" name="status" id="status">
 										<option value="">- Pilih Status -</option>
-										<option value="0" {{ $id!=-1 ? ($berita->status==0 ? 'selected="selected"' : '') : ''}}>Draft</option>
-										<option value="1" {{ $id!=-1 ? ($berita->status==1 ? 'selected="selected"' : '') : ''}}>Publish</option>
-										<option value="2" {{ $id!=-1 ? ($berita->status==2 ? 'selected="selected"' : '') : ''}}>Tidak Publish</option>
+										<option value="0" {{ $id!=-1 ? ($berita->flag==0 ? 'selected="selected"' : '') : ''}}>Draft</option>
+										<option value="1" {{ $id!=-1 ? ($berita->flag==1 ? 'selected="selected"' : '') : ''}}>Publish</option>
+										<option value="2" {{ $id!=-1 ? ($berita->flag==2 ? 'selected="selected"' : '') : ''}}>Tidak Publish</option>
 									</select>
 								</div>
 							</div>
@@ -83,7 +78,7 @@
 							<div class="form-group">
 								<label class="col-lg-12 control-label">Keterangan:</label>
 								<div class="col-lg-12">
-									<textarea rows="5" cols="5" name="keterangan" id="keterangan" class="keterangan form-control" placeholder="Enter your message here">{{$id!=-1 ? $berita->keterangan : ''}}
+									<textarea rows="5" cols="5" name="keterangan" id="keterangan" class="keterangan form-control" placeholder="Enter your message here">{{$id!=-1 ? $berita->deskripsi : ''}}
                                     </textarea>
 								</div>
 							</div>

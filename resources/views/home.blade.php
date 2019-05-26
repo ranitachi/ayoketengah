@@ -1,4 +1,4 @@
-@extends('layouts.front')
+@extends('layouts.front',['kontak'=>$kontak])
 @section('title')
     Beranda Utama
 @endsection

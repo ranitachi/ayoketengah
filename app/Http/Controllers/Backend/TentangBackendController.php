@@ -17,10 +17,10 @@ class TentangBackendController extends Controller
         $this->tentangService = new TentangService();
     }
 
-    public function index($kat='profil-ppid')
+    public function index($kat='about-us')
     {
         $kt=tentang();
-        $katg=(isset($kt[$kat]) ? $kt[$kat] : 'Profil PPID');
+        $katg=(isset($kt[$kat]) ? $kt[$kat] : 'About US');
         $data=$this->tentangService->byKategori($kat);
         // $det=$data->toArray();
         return view('backend.content.tentang.index')
@@ -29,11 +29,11 @@ class TentangBackendController extends Controller
                 ->with('data',$data);
     }
 
-    public function form($kat='profil-ppid')
+    public function form($kat='about-us')
     {
         $kt=tentang();
         $id=-1;
-        $katg=(isset($kt[$kat]) ? $kt[$kat] : 'Profil PPID');
+        $katg=(isset($kt[$kat]) ? $kt[$kat] : 'About US');
         $data=$this->tentangService->byKategori($kat);
         
         if($data)
@@ -74,7 +74,7 @@ class TentangBackendController extends Controller
         }
     }
 
-    public function json_profil($kat='profil-ppid')
+    public function json_profil($kat='about-us')
     {
         if($kat=='all')
             $data=$this->tentangService->all_select();

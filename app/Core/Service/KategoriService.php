@@ -43,8 +43,8 @@ class KategoriService
         // return $data;
         $new=new Kategori;
         $new->kategori =  $data['kategori'];
-        $new->status =  $data['status'];
-        $new->keterangan =  $data['keterangan'];
+        $new->flag =  $data['status'];
+        $new->deskripsi =  $data['keterangan'];
         $c=$new->save();
         return $c;
     }
@@ -53,8 +53,8 @@ class KategoriService
         // return $data;
         $new=Kategori::find($id);
         $new->kategori =  $data['kategori'];
-        $new->status =  $data['status'];
-        $new->keterangan =  $data['keterangan'];
+        $new->flag =  $data['status'];
+        $new->deskripsi =  $data['keterangan'];
         $c=$new->save();
         return $c;
     }

@@ -39,7 +39,6 @@ class SliderBackendController extends Controller
         Validator::make($request->all(), [
             'judul' => 'required',
             'gambar' => 'required',
-            'kategori' => 'required',
             'status' => 'required',
             'keterangan' => 'required'
         ])->validate();
@@ -84,9 +83,8 @@ class SliderBackendController extends Controller
                 $data[$idx][]=$no;
                 $data[$idx][]='<img src="'.asset($val->gambar).'" style="width:150px;">';
                 $data[$idx][]=$val->judul;
-                $data[$idx][]='<span class="label label-primary">'.$val->views.'</span>';
                 $data[$idx][]='<div style="width:150px"><i class="icon-calendar"></i>&nbsp;'.date('d/m/Y H:i:s',strtotime($val->created_at)).'</div>';
-                $data[$idx][]=($val->status==0 ? '<span class="label label-default">Draft</span>' : ($val->status==1 ? '<span class="label label-success"><i class="icon-checkmark"></i> Publish</span>': '<span class="label label-warning"><i class="icon-blocked"></i> Tidak Publish</span>'));
+                $data[$idx][]=($val->flag==0 ? '<span class="label label-default">Draft</span>' : ($val->flag==1 ? '<span class="label label-success"><i class="icon-checkmark"></i> Publish</span>': '<span class="label label-warning"><i class="icon-blocked"></i> Tidak Publish</span>'));
                 $data[$idx][]='<ul class="icons-list">
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">

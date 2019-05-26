@@ -45,12 +45,7 @@
                                     <input type="text" name="name" id="name" class="form-control" placeholder=" Nama User" value="{{$id!=-1 ? $user->name : ''}}">
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="col-lg-2 control-label">NIP :</label>
-								<div class="col-lg-9">
-                                    <input type="text" name="nip" id="nip" class="form-control" placeholder="NIP User" value="{{$id!=-1 ? $user->nip : ''}}">
-								</div>
-							</div>
+							
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Email :</label>
 								<div class="col-lg-9">
@@ -87,6 +82,7 @@
 										<option value="0" {{ $id!=-1 ? ($user->level==0 ? 'selected="selected"' : '') : ''}}>Super Admin</option>
 										<option value="1" {{ $id!=-1 ? ($user->level==1 ? 'selected="selected"' : '') : ''}}>Operator</option>
 										<option value="2" {{ $id!=-1 ? ($user->level==2 ? 'selected="selected"' : '') : ''}}>User Umum</option>
+										<option value="3" {{ $id!=-1 ? ($user->level==3 ? 'selected="selected"' : '') : ''}}>Team</option>
 									</select>
 								</div>
 							</div>
@@ -108,7 +104,13 @@
                                     @endif
 								</div>
 							</div>
-							
+							<div class="form-group">
+								<label class="col-lg-12 control-label">Biografi:</label>
+								<div class="col-lg-12">
+									<textarea rows="5" cols="5" name="biografi" id="biografi" class="biografi form-control" placeholder="Enter your message here">{{$id!=-1 ? $user->biografi : ''}}
+                                    </textarea>
+								</div>
+							</div>
 							<div class="text-right">
 								<button type="button" id="simpan" class="btn btn-primary">Simpan <i class="icon-floppy-disk position-right"></i></button>
 							</div>
@@ -129,6 +131,7 @@
     {{-- <script type="text/javascript" src="assets/js/pages/form_tags_input.js"></script> --}}
     
     <script src="{{asset('vendor/laravel-filemanager/js/lfm.js')}}"></script>
+    <script src="{{asset('vendor/unisharp/laravel-ckeditor/ckeditor.js')}}"></script>
     
     <script>
         $('#simpan').on('click',function(){
@@ -163,7 +166,14 @@
                 $('#form-user').submit()
         });
         var domain = "{{url('/laravel-filemanager')}}";
-        
+        var options = {
+            filebrowserImageBrowseUrl: domain+'?type=Images',
+            filebrowserImageUploadUrl: domain+'/upload?type=Images&_token=',
+            filebrowserBrowseUrl: domain+'?type=Files',
+            filebrowserUploadUrl: domain+'/upload?type=Files&_token=',
+            height : 250
+        };
+        CKEDITOR.replace( 'biografi' ,options);
         $('#lfm').filemanager('image', {prefix: domain});
 
         setTimeout(function(){

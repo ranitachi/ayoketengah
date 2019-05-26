@@ -29,13 +29,14 @@ class UserService
         // return $data;
         $new=new User;
         $new->name =  $data['name'];
-        $new->nip =  $data['nip'];
+       
         $new->email =  $data['email'];
         $new->password =  bcrypt($data['password']);
         $new->level =  $data['level'];
         $new->flag =  $data['flag'];
         $new->telp =  $data['telp'];
         $new->foto =  $data['foto'];
+        $new->biografi =  $data['biografi'];
         $c=$new->save();
         return $c;
     }
@@ -44,7 +45,7 @@ class UserService
         // return $data;
         $new=User::find($id);
         $new->name =  $data['name'];
-        $new->nip =  $data['nip'];
+        
         $new->email =  $data['email'];
         
         if(isset($data['password']))
@@ -57,6 +58,7 @@ class UserService
         $new->flag =  $data['flag'];
         $new->telp =  $data['telp'];
         $new->foto =  $data['foto'];
+        $new->biografi =  $data['biografi'];
         $c=$new->save();
         return $c;
     }

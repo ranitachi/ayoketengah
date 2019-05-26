@@ -40,7 +40,7 @@
                                     </div>
                                 @endif
                                 @if ($data)
-                                    {!!$data->isi!!}
+                                    {!!$data->deskripsi!!}
                                 @else
                                     <div class="text-center">
                                         <h3>Data {{$kat}} Masih Kosong</h3>

@@ -46,9 +46,20 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-lg-2 control-label">Kategori :</label>
+								<label class="col-lg-2 control-label">Tags :</label>
 								<div class="col-lg-9">
                                     <input type="text" name="kategori" id="kategori" class="form-control" placeholder="Kategori Galeri (*Pisahkan Dengan Koma)" value="{{$id!=-1 ? $galeri->kategori : ''}}">
+								</div>
+                            </div>
+                            <div class="form-group">
+								<label class="col-lg-2 control-label">Author:</label>
+								<div class="col-lg-3">
+									<select class="select" name="author_id" id="author_id">
+										<option value="0">Administrator</option>
+										@foreach ($author as $item)
+                                            <option value="{{$item->id}}">{{$item->nama}}</option>
+                                        @endforeach
+									</select>
 								</div>
 							</div>
                             <div class="form-group">
@@ -56,9 +67,9 @@
 								<div class="col-lg-3">
 									<select class="select" name="status" id="status">
 										<option value="">- Pilih Status -</option>
-										<option value="0" {{ $id!=-1 ? ($galeri->status==0 ? 'selected="selected"' : '') : ''}}>Draft</option>
-										<option value="1" {{ $id!=-1 ? ($galeri->status==1 ? 'selected="selected"' : '') : ''}}>Publish</option>
-										<option value="2" {{ $id!=-1 ? ($galeri->status==2 ? 'selected="selected"' : '') : ''}}>Tidak Publish</option>
+										<option value="0" {{ $id!=-1 ? ($galeri->flag==0 ? 'selected="selected"' : '') : ''}}>Draft</option>
+										<option value="1" {{ $id!=-1 ? ($galeri->flag==1 ? 'selected="selected"' : '') : ''}}>Publish</option>
+										<option value="2" {{ $id!=-1 ? ($galeri->flag==2 ? 'selected="selected"' : '') : ''}}>Tidak Publish</option>
 									</select>
 								</div>
 							</div>
@@ -83,7 +94,7 @@
 							<div class="form-group">
 								<label class="col-lg-12 control-label">Keterangan:</label>
 								<div class="col-lg-12">
-									<textarea rows="5" cols="5" name="keterangan" id="keterangan" class="keterangan form-control" placeholder="Enter your message here">{{$id!=-1 ? $galeri->keterangan : ''}}
+									<textarea rows="5" cols="5" name="keterangan" id="keterangan" class="keterangan form-control" placeholder="Enter your message here">{{$id!=-1 ? $galeri->deskripsi : ''}}
                                     </textarea>
 								</div>
 							</div>
@@ -151,7 +162,7 @@
             filebrowserImageUploadUrl: domain+'/upload?type=Images&_token=',
             filebrowserBrowseUrl: domain+'?type=Files',
             filebrowserUploadUrl: domain+'/upload?type=Files&_token=',
-            height : 400
+            height : 200
         };
         CKEDITOR.replace( 'keterangan' ,options);
         

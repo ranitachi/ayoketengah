@@ -14,7 +14,7 @@ class Publikasi extends Model
         return $this->belongsTo('App\Models\Author','author_id');
     }
     
-    function kategori()
+    function kat()
     {
         return $this->belongsTo('App\Models\Kategori','kategori_id');
     }

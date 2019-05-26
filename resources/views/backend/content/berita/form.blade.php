@@ -1,15 +1,15 @@
 @extends('layouts.backend')
 @section('title')
-    Data Berita
+    Data Articles
 @endsection
 @section('header')
     <div class="page-header page-header-default">
 		<div class="page-header-content">
 			<div class="page-title">
-                <h4><i class="icon-newspaper position-left"></i> <span class="text-semibold">Data Berita</span> - Form {{($id==-1 ? 'Baru' : 'Edit')}}</h4>
+                <h4><i class="icon-newspaper position-left"></i> <span class="text-semibold">Data Articles</span> - Form {{($id==-1 ? 'Baru' : 'Edit')}}</h4>
             </div>
             <div class="heading-elements">
-				<a href="{{route('admin-berita.index')}}" class="btn btn-sm ungu-bg text-white"><i class="icon-arrow-left12"></i> &nbsp;Kembali ke Data Berita</a>
+				<a href="{{route('admin-berita.index')}}" class="btn btn-sm ungu-bg text-white"><i class="icon-arrow-left12"></i> &nbsp;Kembali ke Data Articles</a>
 			</div>
 		</div>
 		
@@ -33,26 +33,48 @@
                     @csrf
 					<div class="panel panel-flat">
 						<div class="panel-heading">
-							<h5 class="panel-title">{{$id==-1 ? 'Tambah' : 'Edit'}} Data Berita</h5>
+							<h5 class="panel-title">{{$id==-1 ? 'Tambah' : 'Edit'}} Data Articles</h5>
 							<div class="heading-elements">
 								
 					    	</div>
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<label class="col-lg-2 control-label">Judul Berita :</label>
+								<label class="col-lg-2 control-label">Judul Articles :</label>
 								<div class="col-lg-9">
-                                    <input type="text" name="judul" id="judul" class="form-control" placeholder="Judul Berita" value="{{$id!=-1 ? $berita->judul : ''}}">
+                                    <input type="text" name="judul" id="judul" class="form-control" placeholder="Judul Articles" value="{{$id!=-1 ? $berita->judul : ''}}">
 								</div>
 							</div>
                             <div class="form-group">
-								<label class="col-lg-2 control-label">Status Berita:</label>
+								<label class="col-lg-2 control-label">Kategori Articles:</label>
 								<div class="col-lg-3">
-									<select class="select" name="status" id="status">
+									<select class="select" name="kategori_id" id="kategori_id">
+										<option value="">- Pilih -</option>
+										@foreach ($kategori as $item)
+                                            <option value="{{$item->id}}">{{$item->kategori}}</option>
+                                        @endforeach
+									</select>
+								</div>
+							</div>
+                            <div class="form-group">
+								<label class="col-lg-2 control-label">Author:</label>
+								<div class="col-lg-3">
+									<select class="select" name="author_id" id="author_id">
+										<option value="0">Administrator</option>
+										@foreach ($author as $item)
+                                            <option value="{{$item->id}}">{{$item->nama}}</option>
+                                        @endforeach
+									</select>
+								</div>
+							</div>
+                            <div class="form-group">
+								<label class="col-lg-2 control-label">Status Articles:</label>
+								<div class="col-lg-3">
+									<select class="select" name="flag" id="flag">
 										<option value="">- Pilih Status -</option>
-										<option value="0" {{ $id!=-1 ? ($berita->status==0 ? 'selected="selected"' : '') : ''}}>Draft</option>
-										<option value="1" {{ $id!=-1 ? ($berita->status==1 ? 'selected="selected"' : '') : ''}}>Publish</option>
-										<option value="2" {{ $id!=-1 ? ($berita->status==2 ? 'selected="selected"' : '') : ''}}>Tidak Publish</option>
+										<option value="0" {{ $id!=-1 ? ($berita->flag==0 ? 'selected="selected"' : '') : ''}}>Draft</option>
+										<option value="1" {{ $id!=-1 ? ($berita->flag==1 ? 'selected="selected"' : '') : ''}}>Publish</option>
+										<option value="2" {{ $id!=-1 ? ($berita->flag==2 ? 'selected="selected"' : '') : ''}}>Tidak Publish</option>
 									</select>
 								</div>
 							</div>
@@ -65,19 +87,19 @@
                                         <i class="fa fa-picture-o"></i> Choose
                                         </a>
                                     </span>
-                                        <input id="thumbnail" class="form-control" type="text" name="gambar" value="{{$id!=-1 ? $berita->gambar : ''}}">
+                                        <input id="thumbnail" class="form-control" type="text" name="cover" value="{{$id!=-1 ? $berita->cover : ''}}">
                                     </div>
                                     @if ($id!=-1)
-                                        <img id="holder" style="margin-top:15px;max-height:100px;" src="{{asset($berita->gambar)}}">
+                                        <img id="holder" style="margin-top:15px;max-height:100px;" src="{{asset($berita->cover)}}">
                                     @else
                                         <img id="holder" style="margin-top:15px;max-height:100px;">
                                     @endif
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-lg-12 control-label">Isi Berita:</label>
+								<label class="col-lg-12 control-label">Isi Articles:</label>
 								<div class="col-lg-12">
-									<textarea rows="5" cols="5" name="isi" id="isi" class="isi form-control" placeholder="Enter your message here">{{$id!=-1 ? $berita->isi : ''}}
+									<textarea rows="5" cols="5" name="deskripsi" id="deskripsi" class="deskripsi form-control" placeholder="Enter your message here">{{$id!=-1 ? $berita->deskripsi : ''}}
                                     </textarea>
 								</div>
 							</div>
@@ -106,20 +128,30 @@
         
         $('#simpan').on('click',function(){
             var judul=$('#judul').val();
-            var status=$('#status').val();
-            var isi=CKEDITOR.instances['isi'].getData();
+            var flag=$('#flag').val();
+            var author=$('#author_id').val();
+            var kategori=$('#kategori_id').val();
+            var isi=CKEDITOR.instances['deskripsi'].getData();
             
             if(judul=='')
             {
-                notif('Anda Belum Memasukan Judul Berita');
+                notif('Anda Belum Memasukan Judul Articles');
             }
-            else if(status=='')
+            else if(flag=='')
             {
-                notif('Anda Belum Memilih Status Berita');
+                notif('Anda Belum Memilih Status Articles');
+            }
+            else if(author=='')
+            {
+                notif('Anda Belum Memilih Author');
+            }
+            else if(kategori=='')
+            {
+                notif('Anda Belum Kategori Articles');
             }
             else if(isi=='')
             {
-                notif('Anda Belum Memasukan Isi Berita');
+                notif('Anda Belum Memasukan Isi Articles');
             }
             else
                 $('#form-berita').submit()
@@ -132,7 +164,7 @@
             filebrowserUploadUrl: domain+'/upload?type=Files&_token=',
             height : 400
         };
-        CKEDITOR.replace( 'isi' ,options);
+        CKEDITOR.replace( 'deskripsi' ,options);
         
         $('#lfm').filemanager('image', {prefix: domain});
 

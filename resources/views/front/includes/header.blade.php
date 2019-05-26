@@ -45,9 +45,9 @@
 						            <div id="info-details" class="widget-text">
                                         <i class="glyph-icon flaticon-email"></i>
 						                <div class="info-text">
-						                    <a href="mailto:info@domain.com">
+						                    <a href="{{isset($kontak['email']) ? 'mailto:'.$kontak['email'] : '-'}}">
 						                    	<span>Mail Us</span>
-												info@domain.com
+												{{isset($kontak['email']) ? $kontak['email'] : '-'}}
 											</a>
 						                </div>
 						            </div>
@@ -58,9 +58,9 @@
 						            <div id="phone-details" class="widget-text">
 						                <i class="glyph-icon flaticon-phone-call"></i>
 						                <div class="info-text">
-						                    <a href="tel:4155551234">
+						                    <a href="tel:{{isset($kontak['telepon']) ? $kontak['telepon'] : '-'}}">
 						                    	<span>Call Us</span>
-												+1234-567-890
+												{{isset($kontak['telepon']) ? $kontak['telepon'] : '-'}}
 											</a>
 						                </div>
 						            </div>

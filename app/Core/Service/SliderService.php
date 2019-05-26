@@ -32,11 +32,10 @@ class SliderService
         // return $data;
         $new=new Slider;
         $new->judul =  $data['judul'];
+        $new->judul_slug =  str_slug($data['judul']);
         $new->gambar =  $data['gambar'];
-        $new->kategori =  $data['kategori'];
-        $new->status =  $data['status'];
-        $new->views =  0;
-        $new->keterangan =  $data['keterangan'];
+        $new->flag =  $data['status'];
+        $new->deskripsi =  $data['keterangan'];
         $c=$new->save();
         return $c;
     }
@@ -45,11 +44,10 @@ class SliderService
         // return $data;
         $new=Slider::find($id);
         $new->judul =  $data['judul'];
+        $new->judul_slug =  str_slug($data['judul']);
         $new->gambar =  $data['gambar'];
-        $new->kategori =  $data['kategori'];
-        $new->status =  $data['status'];
-        $new->views =  0;
-        $new->keterangan =  $data['keterangan'];
+        $new->flag =  $data['status'];
+        $new->deskripsi =  $data['keterangan'];
         $c=$new->save();
         return $c;
     }

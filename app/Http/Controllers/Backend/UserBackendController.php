@@ -92,7 +92,7 @@ class UserBackendController extends Controller
                 $data[$idx][]='<img src="'.asset($val->foto).'" style="width:90px;">';
             $data[$idx][]='<b>'.$val->name.'</b>';
             $data[$idx][]='Email : '.$val->email.'<br>Telp : '.$val->telp;
-            $data[$idx][]=($val->level==0 ? '<span class="label ungu-bg"><i class="icon-user"></i> Super Admin</span>' : ($val->level==1 ? '<span class="label label-success"><i class="icon-user"></i> Operator</span>': '<span class="label label-primary"><i class="icon-checkmark"></i> User Umum</span>'));
+            $data[$idx][]=($val->level==0 ? '<span class="label ungu-bg"><i class="icon-user"></i> Super Admin</span>' : ($val->level==1 ? '<span class="label label-success"><i class="icon-user"></i> Operator</span>': ($val->level==2 ? '<span class="label label-success"><i class="icon-user"></i> User Umum</span>': '<span class="label label-primary"><i class="icon-checkmark"></i> Team</span>')));
             $data[$idx][]=($val->flag==0 ? '<span class="label label-default">Tidak Aktif</span>' : '<span class="label label-success"><i class="icon-checkmark"></i> Aktif</span>');
 
             $data[$idx][]='<ul class="icons-list">

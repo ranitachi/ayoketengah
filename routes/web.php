@@ -19,7 +19,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['namespace' => 'Backend'], function (){
     Route::get('/admin', 'DashboardController@index')->name('backend.index')->middleware('auth');
- Route::get('/admin-berita', 'BeritaBackendController@index')->name('admin-berita.index')->middleware('auth');
+    Route::get('/admin-berita', 'BeritaBackendController@index')->name('admin-berita.index')->middleware('auth');
     Route::get('/admin-berita/{id?}', 'BeritaBackendController@form')->name('admin-berita.form')->middleware('auth');
     Route::post('/admin-berita/{id}', 'BeritaBackendController@proses')->name('admin-berita.proses')->middleware('auth');
     Route::get('/admin-berita-hapus/{id}', 'BeritaBackendController@destroy')->name('admin-berita.destroy')->middleware('auth');
@@ -82,6 +82,11 @@ Route::group(['namespace' => 'Backend'], function (){
     
 });
 
+Route::get('about-us','HomeController@about_us')->name('about-us');
+Route::get('articles','HomeController@articles')->name('articles');
+Route::get('articles/{judul}','HomeController@articles_detail')->name('articles.detail');
+Route::get('gallery','HomeController@gallery')->name('gallery');
+
 Route::get('logout',function(){
     Auth::logout();
     return redirect('/');
@@ -90,3 +95,4 @@ Route::get('logout',function(){
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     //  \UniSharp\LaravelFilemanager\Lfm::routes();
  });
+ Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

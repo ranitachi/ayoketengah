@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Core\Service\BeritaService;
 use Auth;
 use Validator;
-
+use App\Models\Author;
+use App\Models\Kategori;
 class BeritaBackendController extends Controller
 {
     private $beritaService;
@@ -34,8 +35,12 @@ class BeritaBackendController extends Controller
         if($id!=-1)
             $berita=$this->beritaService->show($id);
         
+        $author=Author::where('flag',1)->orderBy('nama')->get();
+        $kategori=Kategori::where('flag',1)->orderBy('kategori')->get();
         return view('backend.content.berita.form')
                 ->with('berita',$berita)
+                ->with('author',$author)
+                ->with('kategori',$kategori)
                 ->with('id',$id);
     }
 
@@ -43,8 +48,9 @@ class BeritaBackendController extends Controller
     {
         Validator::make($request->all(), [
             'judul' => 'required',
-            'status' => 'required',
-            'isi' => 'required'
+            'flag' => 'required',
+            'kategori_id' => 'required',
+            'deskripsi' => 'required'
         ])->validate();
 
         $data=$request->all();
@@ -54,17 +60,17 @@ class BeritaBackendController extends Controller
         {
             $save = $this->beritaService->simpan($data);
             if($save)
-                return redirect()->route('admin-berita.index')->with('pesan','Data Berita Berhasil Disimpan');
+                return redirect()->route('admin-berita.index')->with('pesan','Data Articles Berhasil Disimpan');
             else
-                return redirect()->route('admin-berita.index')->with('error','Data Berita Gagal Disimpan');
+                return redirect()->route('admin-berita.index')->with('error','Data Articles Gagal Disimpan');
         }
         else
         {
             $save = $this->beritaService->edit($data,$id);
             if($save)
-                return redirect()->route('admin-berita.index')->with('pesan','Data Berita Berhasil Di Edit');
+                return redirect()->route('admin-berita.index')->with('pesan','Data Articles Berhasil Di Edit');
             else
-                return redirect()->route('admin-berita.index')->with('error','Data Berita Gagal Di Edit');
+                return redirect()->route('admin-berita.index')->with('error','Data Articles Gagal Di Edit');
         }
 
         
@@ -74,7 +80,7 @@ class BeritaBackendController extends Controller
     {
         if($st!=null)
         {
-            $wh=['status'=>1];
+            $wh=['flag'=>1];
             return $this->beritaService->all($limit,$wh);
         }
         else
@@ -82,14 +88,19 @@ class BeritaBackendController extends Controller
             $berita=$this->beritaService->all();
             $data=array();
             $no=1;
+            // return $berita;
             foreach($berita as $idx=>$val)
             {
                 $data[$idx][]=$no;
-                $data[$idx][]=$val->judul;
-                $data[$idx][]=$val->author;
+                $data[$idx][]='<small>Kategori : </small>'.(isset($val->kat->kategori) ? $val->kat->kategori:'').'<br>'.$val->judul;
+                if(isset($val->author->nama))
+                    $data[$idx][]=$val->author->nama;
+                else
+                    $data[$idx][]='Administrator';
+
                 $data[$idx][]='<span class="label label-primary">'.$val->views.'</span>';
                 $data[$idx][]='<div style="width:150px"><i class="icon-calendar"></i>&nbsp;'.date('d/m/Y H:i:s',strtotime($val->created_at)).'</div>';
-                $data[$idx][]=($val->status==0 ? '<span class="label label-default">Draft</span>' : ($val->status==1 ? '<span class="label label-success"><i class="icon-checkmark"></i> Publish</span>': '<span class="label label-warning"><i class="icon-blocked"></i> Tidak Publish</span>'));
+                $data[$idx][]=($val->flag==0 ? '<span class="label label-default">Draft</span>' : ($val->flag==1 ? '<span class="label label-success"><i class="icon-checkmark"></i> Publish</span>': '<span class="label label-warning"><i class="icon-blocked"></i> Tidak Publish</span>'));
                 $data[$idx][]='<ul class="icons-list">
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -123,9 +134,9 @@ class BeritaBackendController extends Controller
     {
         $c=$this->beritaService->hapus($id);
         if($c)
-            return redirect()->route('admin-berita.index')->with('pesan','Data Berita Berhasil Di Hapus');
+            return redirect()->route('admin-berita.index')->with('pesan','Data Articles Berhasil Di Hapus');
         else
-            return redirect()->route('admin-berita.index')->with('error','Data Berita Gagal Di Hapus');
+            return redirect()->route('admin-berita.index')->with('error','Data Articles Gagal Di Hapus');
     }
 
     public function json_addview(Request $request)

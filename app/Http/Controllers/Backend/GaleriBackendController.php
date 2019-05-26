@@ -7,7 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Core\Service\GaleriService;
 use Auth;
 use Validator;
-
+use App\Models\Author;
+use App\Models\Kategori;
 class GaleriBackendController extends Controller
 {
     private $galeriService;
@@ -28,9 +29,12 @@ class GaleriBackendController extends Controller
         $galeri=array();
         if($id!=-1)
             $galeri=$this->galeriService->show($id);
-        
+        $author=Author::where('flag',1)->orderBy('nama')->get();
+        $kategori=Kategori::where('flag',1)->orderBy('kategori')->get();
         return view('backend.content.galeri.form')
                 ->with('galeri',$galeri)
+                ->with('author',$author)
+                ->with('kategori',$kategori)
                 ->with('id',$id);
     }
 
@@ -86,7 +90,7 @@ class GaleriBackendController extends Controller
                 $data[$idx][]=$val->judul.'<br><br><small>Tags :</small><br>'.$val->kategori;
                 $data[$idx][]='<span class="label label-primary">'.$val->views.'</span>';
                 $data[$idx][]='<div style="width:150px"><i class="icon-calendar"></i>&nbsp;'.date('d/m/Y H:i:s',strtotime($val->created_at)).'</div>';
-                $data[$idx][]=($val->status==0 ? '<span class="label label-default">Draft</span>' : ($val->status==1 ? '<span class="label label-success"><i class="icon-checkmark"></i> Publish</span>': '<span class="label label-warning"><i class="icon-blocked"></i> Tidak Publish</span>'));
+                $data[$idx][]=($val->flag==0 ? '<span class="label label-default">Draft</span>' : ($val->flag==1 ? '<span class="label label-success"><i class="icon-checkmark"></i> Publish</span>': '<span class="label label-warning"><i class="icon-blocked"></i> Tidak Publish</span>'));
                 $data[$idx][]='<ul class="icons-list">
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">

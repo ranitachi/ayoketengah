@@ -46,7 +46,6 @@
                                                 <th>No</th>
                                                 <th>Gambar</th>
                                                 <th>Judul Slider</th>
-                                                <th>View</th>
                                                 <th>Created At</th>
                                                 <th>Status</th>
                                                 <th>#</th>

@@ -4,7 +4,7 @@
         <!-- meta tag -->
         <meta charset="utf-8">
         <title>
-            @yield('title') || AyoKeTengah
+            @yield('title') - AyoKeTengah
         </title>
         @include('front.includes.link')
     </head>
@@ -19,10 +19,10 @@
         </div> --}}
 		<!--Preloader area end here-->
 		
-        @include('front.includes.header')
+        @include('front.includes.header',['kontak'=>$kontak])
 		
 		<!-- Slider Area Start -->
-        @include('front.includes.slider')
+        
         <!-- Slider Area End -->
 		
 		@yield('konten')
@@ -60,4 +60,5 @@
         
         @include('front.includes.script')
     </body>
+    @yield('footscript')
 </html>

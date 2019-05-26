@@ -34,9 +34,10 @@ class GaleriService
         $new->judul =  $data['judul'];
         $new->gambar =  $data['gambar'];
         $new->kategori =  $data['kategori'];
-        $new->status =  $data['status'];
+        $new->flag =  $data['status'];
+        $new->author_id =  $data['author_id'];
         $new->views =  0;
-        $new->keterangan =  $data['keterangan'];
+        $new->deskripsi =  $data['keterangan'];
         $c=$new->save();
         return $c;
     }
@@ -47,9 +48,9 @@ class GaleriService
         $new->judul =  $data['judul'];
         $new->gambar =  $data['gambar'];
         $new->kategori =  $data['kategori'];
-        $new->status =  $data['status'];
-        $new->views =  0;
-        $new->keterangan =  $data['keterangan'];
+        $new->flag =  $data['status'];
+        $new->author_id =  $data['author_id'];
+        $new->deskripsi =  $data['keterangan'];
         $c=$new->save();
         return $c;
     }

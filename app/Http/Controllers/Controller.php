@@ -32,7 +32,7 @@ class Controller extends BaseController
         $kontak=array();
         foreach($k as $i =>$v)
         {
-            $kontak[str_slug($v->nama)]=$v->value;
+            $kontak[str_slug($v->nama)]=$v->nilai;
         }
         return $kontak;
     }
@@ -79,7 +79,7 @@ class Controller extends BaseController
     {
         try
         {
-            $url=url('/api/json-berita/5/true');
+            $url=url('/api/json-berita/4/true');
             $client = new Client();
             $result = $client->request('GET', $url);
             $data = json_decode($result->getBody()->getContents());

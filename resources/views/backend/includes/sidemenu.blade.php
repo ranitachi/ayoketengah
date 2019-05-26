@@ -43,6 +43,12 @@
                                         <li class="{{strpos($path,'admin-berita/')!==false ? 'active' : ''}}"><a href="{{route('admin-berita.form',-1)}}">Tambah Articles</a></li>
 									</ul>
 								</li>
+								<li class="{{strpos($path,'kategori')!==false ? 'active' : ''}}">
+									<a href="#"><i class="icon-list"></i> <span>Kategori Artikel</span></a>
+									<ul>
+                                        <li class="{{strpos($path,'admin-kategori')!==false ? 'active' : ''}}"><a href="{{route('admin-kategori.index')}}">Data Kategori</a></li>
+									</ul>
+								</li>
 								<li class="{{strpos($path,'slider')!==false ? 'active' : ''}}">
 									<a href="#"><i class="icon-stack2"></i> <span>Slider</span></a>
 									<ul>
@@ -61,17 +67,12 @@
                                 <li class="navigation-header"><span>Tentang AyoKeTengah</span> <i class="icon-menu" title="Data Informasi"></i></li>
                                 <li class="{{strpos($path,'about-us')!==false ? 'active' : ''}}"><a href="{{url('tentang/about-us')}}"><i class="icon-grid5"></i> <span>About Us</span></a></li>
                                 
-								<li class="{{strpos($path,'kategori')!==false ? 'active' : ''}}">
-									<a href="#"><i class="icon-list"></i> <span>Kategori Artikel</span></a>
-									<ul>
-                                        <li class="{{strpos($path,'admin-kategori')!==false ? 'active' : ''}}"><a href="{{route('admin-kategori.index')}}">Data Kategori</a></li>
-									</ul>
-								</li>
+								
 							
                                 <li class="navigation-header"><span>Master Data</span> <i class="icon-menu" title="Data Master"></i></li>
 
 								
-								@if (Auth::user()->level==1)
+								@if (Auth::user()->level==0)
 								<li class="{{strpos($path,'user')!==false ? 'active' : ''}}">
 									<a href="#"><i class="icon-users"></i> <span>Data User</span></a>
 									<ul>

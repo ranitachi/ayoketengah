@@ -6761,7 +6761,8 @@ ul {
   font-size: 15px;
 }
 .rs-footer .footer-top {
-  padding-top: 140px;
+  /* padding-top: 140px; */
+  padding-top: 20px;
 }
 .rs-footer .footer-top .recent-post-widget .post-item {
   display: -ms-flexbox;

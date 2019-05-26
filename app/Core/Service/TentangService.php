@@ -5,7 +5,7 @@ namespace App\Core\Service;
 
 use App\Models\Profil;
 use Illuminate\Support\Facades\DB;
-
+use Auth;
 class TentangService
 {
     public function all()
@@ -22,7 +22,7 @@ class TentangService
     
     public function all_select()
     {
-        $data=Profil::select('id','kategori','kategori_slug','isi','views','created_at')->get();
+        $data=Profil::select('id','kategori','kategori_slug','deskripsi','created_at')->get();
         $d=array();
         foreach($data as $k)
         {
@@ -47,9 +47,10 @@ class TentangService
         $new = new Profil;
         $new->kategori =  $data['kategori'];
         $new->kategori_slug =  str_slug($data['kategori']);
-        $new->isi =  $data['isi'];
-        $new->views =  0;
-        $new->urutan =  0;
+        $new->deskripsi =  $data['isi'];
+        $new->author_id =  Auth::user()->id;
+        // $new->views =  0;
+        $new->flag =  1;
         $c=$new->save();
         return $c;
     }
@@ -58,9 +59,10 @@ class TentangService
         $new = Profil::find($id);
         $new->kategori =  $data['kategori'];
         $new->kategori_slug =  str_slug($data['kategori']);
-        $new->isi =  $data['isi'];
-        $new->views =  0;
-        $new->urutan =  0;
+        $new->deskripsi =  $data['isi'];
+        $new->author_id =  Auth::user()->id;
+        // $new->views =  0;
+        $new->flag =  1;
         $c=$new->save();
         return $c;
     }

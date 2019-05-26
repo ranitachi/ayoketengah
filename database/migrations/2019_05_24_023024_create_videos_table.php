@@ -17,6 +17,7 @@ class CreateVideosTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('judul')->nullable();
+            $table->string('judul_slug')->nullable();
             $table->string('deskripsi')->nullable();
             $table->integer('flag')->nullable()->default(0);
             $table->string('tag')->nullable();

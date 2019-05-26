@@ -50,7 +50,7 @@
 							<div class="form-group">
 								<label class="col-lg-12 control-label">Keterangan:</label>
 								<div class="col-lg-12">
-									<textarea rows="5" cols="5" name="isi" id="isi" class="isi form-control" placeholder="Enter your message here">{{$id!=-1 ? $data->isi : ''}}
+									<textarea rows="5" cols="5" name="isi" id="isi" class="isi form-control" placeholder="Enter your message here">{{$id!=-1 ? $data->deskripsi : ''}}
                                     </textarea>
 								</div>
 							</div>
